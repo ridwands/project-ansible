@@ -1,0 +1,19 @@
+---
+- name: Repo Nvidia Docker
+  copy: 
+    src: nvidia-docker.repo
+    dest: /etc/yum.repos.d/nvidia-docker.repo
+- name: Install Nvidia Docker
+  yum:
+    name: nvidia-docker2
+    state: present
+- name: Kill Dockerd
+  command: pkill -SIGHUP dockerd
+  notify: "Restart Docker"
+- name: Config Docker
+  template:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+  notify: "Restart Docker"
+
+    

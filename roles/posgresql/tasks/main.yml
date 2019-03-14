@@ -1,0 +1,17 @@
+---
+- name: Install Postgresql
+  yum: 
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - postgresql-server
+      - postgresql-contrib
+- name: Setup InitDB
+  command: postgresql-setup initdb
+  notify: "Restart Postgresql"
+- name: Config 
+  template:
+    src: pg_hba.conf
+    dest: /var/lib/pgsql/data/pg_hba.conf
+  notify: "Restart Postgresql"

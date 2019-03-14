@@ -1,0 +1,20 @@
+---
+# tasks file for project
+- name: Install Epel Release
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+- name: Install Yum Utils
+  yum:
+    name: yum-utils
+    state: present
+- name: Download Repo
+  command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+- name: Docker Install
+  yum:
+    name: docker-ce-18.06.0.ce-3.el7 
+    state: present
+- name: Restart Docker
+  service:
+    name: docker
+    state: restarted
