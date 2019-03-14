@@ -8,14 +8,6 @@
         - kernel-devel
         - dkms
         - wget
-- name: ModProbe
-  blockinfile:
-    path: /etc/default/grub
-    insertafter: GRUB_CMDLINE_LINUX=
-    content: |
-        GRUB_CMDLINE_LINUX="modprobe.blacklist=nouveau"
-- name: Grub
-  command: grub2-mkconfig -o /boot/grub2/grub.cfg
 - name: Nvidia Driver Download
   command: wget http://us.download.nvidia.com/XFree86/Linux-x86_64/418.43/NVIDIA-Linux-x86_64-418.43.run
 - name: Executable Nvidia Change
